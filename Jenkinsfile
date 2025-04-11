@@ -24,12 +24,17 @@ pipeline {
             agent {
                 docker {
                     image 'node:18-alpine'
-                    
+                    reuseNode true
                 }
             }            
             steps {
-                sh 'test -f build/index.html'
-                npm test
+                sh '''
+                    ls -la
+                    find -name "build"
+                    test -f build/index.html
+                    npm test
+                '''
+                
             }
         }
     }
